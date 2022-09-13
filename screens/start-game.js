@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
-
+import Card from "../components/card";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -20,6 +20,9 @@ const styles = StyleSheet.create({
         paddingVertical: 5, 
     },
     inputContainer: {
+        width: 320,
+        maxWidth: '80%',
+        height: 200,
         justifyContent: 'center',
         alignItems: 'center',
         marginHorizontal: 20,
@@ -28,7 +31,7 @@ const styles = StyleSheet.create({
         width: '100%',
         borderBottomColor: '#2292A4',
         borderBottomWidth: 1,
-        minWidth: 70,
+        maxWidth: 70,
         fontSize: 25,
         paddingVertical: 10,
         textAlign: 'center',
@@ -46,22 +49,26 @@ const StartGameScreen = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Comenzar juego</Text>
-            <View style={styles.inputContainer}>
+            <Card style={styles.inputContainer}>
                 <Text style={styles.label}>Elija un numero</Text>
-                <TextInput style={styles.input} />
-            </View>
-            <View style={styles.buttonContainer}>
-                <Button
-                    title="Limpiar"
-                    onPress={() => null}
-                    color='#2292A4'
+                <TextInput 
+                    style={styles.input} 
+                    keyboardType='numeric' 
+                    maxLength={2}
                 />
-                <Button
-                    title="Confirmar"
-                    onPress={() => null}
-                    color='#2292A4'
-                />
-            </View>
+                <View style={styles.buttonContainer}>
+                    <Button
+                        title="Limpiar"
+                        onPress={() => null}
+                        color='#2292A4'
+                    />
+                    <Button
+                        title="Confirmar"
+                        onPress={() => null}
+                        color='#2292A4'
+                    />
+                </View>
+            </Card>
         </View>
     )
 }
