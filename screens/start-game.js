@@ -1,6 +1,9 @@
-import React from "react";
-import { View, Text, StyleSheet, TextInput, Button } from "react-native";
+import React, { useState} from "react";
+import { View, Text, StyleSheet, Button, TouchableWithoutFeedback, Keyboard } from "react-native";
 import Card from "../components/card";
+import Input from "../components/input";
+import { colors } from "../constants/colors";
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -9,13 +12,13 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 20,
-        color: '#212121',
+        color: colors.text,
         textAlign: 'center',
         paddingVertical: 20,
     },
     label: {
         fontSize: 14,
-        color: '#212121',
+        color: colors.text,
         textAlign: 'center',
         paddingVertical: 5, 
     },
@@ -29,7 +32,7 @@ const styles = StyleSheet.create({
     },
     input: {
         width: '100%',
-        borderBottomColor: '#2292A4',
+        borderBottomColor: colors.primary,
         borderBottomWidth: 1,
         maxWidth: 70,
         fontSize: 25,
@@ -46,30 +49,42 @@ const styles = StyleSheet.create({
 });
 
 const StartGameScreen = () => {
+    const [number, setNumber] = useState('');
+
+    const onHandleChange = (text) => {
+        setNumber(text.replace(/[^0-9]/g, ''));
+    }
     return (
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.container}>
             <Text style={styles.title}>Comenzar juego</Text>
             <Card style={styles.inputContainer}>
                 <Text style={styles.label}>Elija un numero</Text>
-                <TextInput 
+                <Input 
                     style={styles.input} 
                     keyboardType='numeric' 
                     maxLength={2}
+                    blurOnSubmit
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                    onChangeText={(text) => onHandleChange(text)}
+                    value={number}
                 />
                 <View style={styles.buttonContainer}>
                     <Button
                         title="Limpiar"
                         onPress={() => null}
-                        color='#2292A4'
+                        color={colors.primary}
                     />
                     <Button
                         title="Confirmar"
                         onPress={() => null}
-                        color='#2292A4'
+                        color={colors.secondary}
                     />
                 </View>
             </Card>
         </View>
+        </TouchableWithoutFeedback>
     )
 }
 
