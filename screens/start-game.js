@@ -54,6 +54,11 @@ const StartGameScreen = () => {
     const onHandleChange = (text) => {
         setNumber(text.replace(/[^0-9]/g, ''));
     }
+
+    const onReset = () => {
+        setNumber('');
+        Keyboard.dismiss()
+    }
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.container}>
@@ -73,7 +78,7 @@ const StartGameScreen = () => {
                 <View style={styles.buttonContainer}>
                     <Button
                         title="Limpiar"
-                        onPress={() => null}
+                        onPress={onReset}
                         color={colors.primary}
                     />
                     <Button
