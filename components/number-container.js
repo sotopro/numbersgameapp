@@ -13,8 +13,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     number: {
-        fontSize: 25,
-        fontWeight: 'bold',
+        fontSize: 20,
+        fontFamily: 'Lato-Bold',
     },
 });
 

@@ -16,12 +16,14 @@ const styles = StyleSheet.create({
         color: colors.text,
         textAlign: 'center',
         paddingVertical: 20,
+        fontFamily: 'Lato-Bold',
     },
     label: {
         fontSize: 14,
         color: colors.text,
         textAlign: 'center',
         paddingVertical: 5, 
+        fontFamily: 'Lato-Regular',
     },
     inputContainer: {
         width: 320,
@@ -39,6 +41,7 @@ const styles = StyleSheet.create({
         fontSize: 25,
         paddingVertical: 10,
         textAlign: 'center',
+        fontFamily: 'Lato-Regular',
     },
     buttonContainer: {
         width: '75%',
@@ -58,6 +61,7 @@ const styles = StyleSheet.create({
     },
     summaryText: {
         fontSize: 18,
+        fontFamily: 'Lato-Regular',
     }
 });
 

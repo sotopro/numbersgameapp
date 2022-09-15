@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
         borderBottomColor: colors.primary,
         borderBottomWidth: 1,
         marginVertical: 20,
+        ontFamily: 'Lato-Regular'
     }
 })
 
