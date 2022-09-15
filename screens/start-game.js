@@ -2,6 +2,7 @@ import React, { useState} from "react";
 import { View, Text, StyleSheet, Button, TouchableWithoutFeedback, Keyboard } from "react-native";
 import Card from "../components/card";
 import Input from "../components/input";
+import NumberContainer from "../components/number-container";
 import { colors } from "../constants/colors";
 
 const styles = StyleSheet.create({
@@ -45,20 +46,59 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginTop: 20,
+    },
+    summaryContainer: {
+        width: '80%',
+        height: 180,
+        marginHorizontal: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 10,
+        marginTop: 20,
+    },
+    summaryText: {
+        fontSize: 18,
     }
 });
 
-const StartGameScreen = () => {
+const StartGameScreen = ({onStartGame}) => {
     const [number, setNumber] = useState('');
-
+    const [confirmed, setConfirmed] = useState(false);
+    const [selectedNumber, setSelectedNumber] = useState(0);
     const onHandleChange = (text) => {
         setNumber(text.replace(/[^0-9]/g, ''));
     }
 
     const onReset = () => {
         setNumber('');
+        setSelectedNumber(0);
+        setConfirmed(false);
         Keyboard.dismiss()
     }
+
+    const onConfirm = () => {
+        const chosenNumber = parseInt(number, 10);
+        if(isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) return;
+        setConfirmed(true);
+        setSelectedNumber(chosenNumber)
+        setNumber('');
+    }
+
+    const onHandleStartGame = () => {
+        onStartGame(selectedNumber);
+    }
+
+    const comfirmedOutput = () =>  confirmed && (
+        <Card style={styles.summaryContainer}>
+            <Text style={styles.summaryText}>Tu seleccion</Text>
+            <NumberContainer>{selectedNumber}</NumberContainer>
+            <Button
+                title="Iniciar Juego"
+                onPress={onHandleStartGame}
+                color={colors.primary}
+            />
+        </Card>
+    )
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.container}>
@@ -83,11 +123,12 @@ const StartGameScreen = () => {
                     />
                     <Button
                         title="Confirmar"
-                        onPress={() => null}
+                        onPress={onConfirm}
                         color={colors.secondary}
                     />
                 </View>
             </Card>
+            {comfirmedOutput()}
         </View>
         </TouchableWithoutFeedback>
     )
