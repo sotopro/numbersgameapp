@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
         color: colors.text,
         textAlign: 'center',
         paddingVertical: 5,
+        marginVertical: 10,
     }
 })
 
@@ -35,7 +36,7 @@ const GameOverScreen = ({ roundsNumber, userNumber, onRestart }) => {
             <Image source={{ uri: 'https://img.freepik.com/vector-gratis/juego-terminado-efecto-falla_225004-661.jpg?w=2000'}} style={styles.image} />
             
                 <Text style={styles.textResult}>Intentos: {roundsNumber}</Text>
-                <Text>El numero era: {userNumber}</Text>
+                <Text style={styles.textResult}>El numero era: {userNumber}</Text>
             
             <Button 
                 title="Reiniciar"

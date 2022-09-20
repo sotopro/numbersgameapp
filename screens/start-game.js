@@ -1,5 +1,5 @@
 import React, { useState} from "react";
-import { View, Text, StyleSheet, Button, TouchableWithoutFeedback, Keyboard, ScrollView, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Button, TouchableWithoutFeedback, Keyboard, ScrollView, Dimensions, KeyboardAvoidingView, Platform } from "react-native";
 import Card from "../components/card";
 import Input from "../components/input";
 import NumberContainer from "../components/number-container";
@@ -32,8 +32,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Lato-Regular',
     },
     inputContainer: {
-        width: 320,
-        maxWidth: '80%',
+        maxWidth: width,
         height: 200,
         justifyContent: 'center',
         alignItems: 'center',
@@ -111,6 +110,7 @@ const StartGameScreen = ({onStartGame}) => {
         </Card>
     )
     return (
+        <KeyboardAvoidingView contentContainerStyle={styles.containerScroll} style={styles.containerScroll} behavior={Platform.OS === 'android' ? 'padding' : 'position'} keyboardVerticalOffset={30}>
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <ScrollView style={styles.containerScroll}>
                 <View style={styles.container}>
@@ -144,6 +144,7 @@ const StartGameScreen = ({onStartGame}) => {
                 </View>
             </ScrollView>
         </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
     )
 }
 
