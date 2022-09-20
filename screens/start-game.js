@@ -1,15 +1,21 @@
 import React, { useState} from "react";
-import { View, Text, StyleSheet, Button, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { View, Text, StyleSheet, Button, TouchableWithoutFeedback, Keyboard, ScrollView, Dimensions } from "react-native";
 import Card from "../components/card";
 import Input from "../components/input";
 import NumberContainer from "../components/number-container";
 import { colors } from "../constants/colors";
+
+const { height, width } = Dimensions.get('window');
+
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
         marginVertical: 10,
+    },
+    containerScroll: {
+        flex: 1,
     },
     title: {
         fontSize: 20,
@@ -44,7 +50,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Lato-Regular',
     },
     buttonContainer: {
-        width: '75%',
+        width: width / 1.5,
         marginHorizontal: 20,
         flexDirection: 'row',
         justifyContent: 'space-around',
@@ -64,6 +70,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Lato-Regular',
     }
 });
+
 
 const StartGameScreen = ({onStartGame}) => {
     const [number, setNumber] = useState('');
@@ -105,35 +112,37 @@ const StartGameScreen = ({onStartGame}) => {
     )
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View style={styles.container}>
-            <Text style={styles.title}>Comenzar juego</Text>
-            <Card style={styles.inputContainer}>
-                <Text style={styles.label}>Elija un numero</Text>
-                <Input 
-                    style={styles.input} 
-                    keyboardType='numeric' 
-                    maxLength={2}
-                    blurOnSubmit
-                    autoCapitalize='none'
-                    autoCorrect={false}
-                    onChangeText={(text) => onHandleChange(text)}
-                    value={number}
-                />
-                <View style={styles.buttonContainer}>
-                    <Button
-                        title="Limpiar"
-                        onPress={onReset}
-                        color={colors.primary}
-                    />
-                    <Button
-                        title="Confirmar"
-                        onPress={onConfirm}
-                        color={colors.secondary}
-                    />
+            <ScrollView style={styles.containerScroll}>
+                <View style={styles.container}>
+                    <Text style={styles.title}>Comenzar juego</Text>
+                    <Card style={styles.inputContainer}>
+                        <Text style={styles.label}>Elija un numero</Text>
+                        <Input 
+                            style={styles.input} 
+                            keyboardType='numeric' 
+                            maxLength={2}
+                            blurOnSubmit
+                            autoCapitalize='none'
+                            autoCorrect={false}
+                            onChangeText={(text) => onHandleChange(text)}
+                            value={number}
+                        />
+                        <View style={styles.buttonContainer}>
+                            <Button
+                                title="Limpiar"
+                                onPress={onReset}
+                                color={colors.primary}
+                            />
+                            <Button
+                                title="Confirmar"
+                                onPress={onConfirm}
+                                color={colors.secondary}
+                            />
+                        </View>
+                    </Card>
+                    {comfirmedOutput()}
                 </View>
-            </Card>
-            {comfirmedOutput()}
-        </View>
+            </ScrollView>
         </TouchableWithoutFeedback>
     )
 }

@@ -4,6 +4,7 @@ import { useFonts } from 'expo-font';
 import Header from './components/header';
 import GameScreen from './screens/game';
 import StartGameScreen from './screens/start-game';
+import GameOverScreen from './screens/game-over';
 import { colors } from './constants/colors';
 const styles = StyleSheet.create({
   container: {
@@ -21,6 +22,7 @@ const styles = StyleSheet.create({
 
 export default function App() {
   const [userNumber, setUserNumber] = useState(0);
+  const [rounds, setRounds] = useState(0);
   const [loaded] = useFonts({
     'Lato-Regular': require('./assets/fonts/Lato-Regular.ttf'),
     'Lato-Bold': require('./assets/fonts/Lato-Bold.ttf'),
@@ -34,6 +36,15 @@ export default function App() {
     setUserNumber(selectedNumber);
   }
 
+  const onGameOver = (roundsNumber) => {
+    setRounds(roundsNumber);
+  }
+
+  const onRestartGame = () => {
+    setUserNumber(0);
+    setRounds(0);
+  }
+
   if(!loaded) {
     return (
       <View style={styles.containerLoader}>
@@ -44,13 +55,15 @@ export default function App() {
 
   let content = <StartGameScreen onStartGame={onStartGame} />
   
-  if(userNumber) {
-    content = <GameScreen selectedNumber={userNumber} />
+  if(userNumber && rounds <= 0) {
+    content = <GameScreen selectedNumber={userNumber} onGameOver={onGameOver} />
+  } else if(rounds > 0) {
+    content = <GameOverScreen roundsNumber={rounds} userNumber={userNumber} onRestart={onRestartGame} />
   }
   
   return (
     <View style={styles.container}>
-      <Header title={title} />
+      <Header title={rounds > 0 ? 'Game Over' : title} />
       {content}
     </View>
   );
