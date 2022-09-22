@@ -1,5 +1,5 @@
 import React, { useState} from 'react';
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator, SafeAreaView } from 'react-native';
 import { useFonts } from 'expo-font';
 import Header from './components/header';
 import GameScreen from './screens/game';
@@ -62,9 +62,9 @@ export default function App() {
   }
   
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Header title={rounds > 0 ? 'Game Over' : title} />
       {content}
-    </View>
+    </SafeAreaView>
   );
 }

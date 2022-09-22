@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, StatusBar, Platform } from "react-native";
 import { colors } from "../constants/colors";
 
 const styles = StyleSheet.create({
@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: colors.primary,
-        paddingTop: 20,
+        marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     },
     title: {
         fontSize: 20,
